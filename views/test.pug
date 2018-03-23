@@ -1,0 +1,60 @@
+extends layout
+block content
+ body 
+    table
+     tr.table-header
+      th №
+      th Date
+      th Start time
+      th End time
+      th Duration 
+      th Operator
+      th New/Old
+      th Platform
+      th Reason of call
+      th.hidden Usage of service / issue resolved
+      th Session code
+      th.hidden Session ID
+      th Customer ID
+      th Email
+      th.hidden Reason of cancellation
+      th.hidden Issue with payment
+      th.hidden Language
+      th.hidden Call served
+      th.hidden Comment
+     each call, i in calls.docs
+      tr 
+        td=i+1
+        td=call.date
+        td=call.time.time_start
+        td=call.time.time_end
+        td=call.time.time_duration
+        td=call.operator
+        td=call.client_type
+        td=call.platform
+        if (call.call_reason_sales!==undefined)
+          td=call.call_reason_sales
+        else
+          td=call.call_reason_support
+        if (call.usage_possibility!==undefined)
+          td.hidden=call.usage_possibility
+        else
+          td.hidden=call.issue_resolved
+        td=call.session_code
+        td.hidden=call.session_id
+        td=call.customer_id
+        td=call.email
+        td.hidden=call.cancelation_reason
+        td.hidden=call.payment_issue
+        td.hidden=call.language
+        td.hidden=call.call_served
+        td.hidden=call.comment
+    div.pagination
+        a(href='') &laquo
+         if calls.pages<5
+         - for(var page=1; page<=calls.pages; page++) {
+          a(href='') #{page} 
+         - } 
+        a(href='') &raquo
+        
+    

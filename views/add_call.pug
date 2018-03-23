@@ -1,0 +1,123 @@
+extends layout
+block content
+ body  
+    div.callbuttons
+        button#callStart(onclick='startTimer()')
+         i.fa.fa-phone-square(aria-hidden="true") Start
+        div.timeCapture 
+         div#timeStart
+        div#timer 00:00:00
+        div.timeCapture    
+         div#timeEnd
+        button#callEnd(onclick='endTimer()')
+         i.fa.fa-phone-square(aria-hidden="true") End
+    div.container 
+        div.client_type.box-decoration#changeNew New Customer
+        div.client_type.box-decoration#changeOld Existing Customer
+    div.container
+        div.clients.box-decoration#newClient
+            form#new(method='POST', action="/calls/add")
+                input(name='client_type', value='New',type='hidden')
+                input(name='time_start', id='time_start', type='hidden')
+                input(name='time_end', id='time_end', type='hidden')
+                input(name='time_duration', id='time_duration', type='hidden')
+                input(name='operator_username', id='operator_username', value=operatorUsername, type='hidden')
+                input(name='operator_department', id='operator_department', value=operatorDepartment, type='hidden')
+                input(name='call_date', id='call_date', value='',type='hidden')
+                div.form-group
+                    label.left #[span Session code:]
+                    input.right(name='session_code', type='text')
+                div.form-group
+                    div.radio-group
+                        input.input-radio#option-one(type='radio', name='platform', value='Android')
+                        label.label-radio(for='option-one') Android
+                        input.input-radio#option-two(type='radio', name='platform', value='iOS')
+                        label.label-radio(for='option-two') iOS
+                        input.input-radio#option-three(type='radio', name='platform', value='Desktop')
+                        label.label-radio(for='option-three') Desktop
+                div.form-group  
+                    label.left #[span Reason]
+                    select.right(name='call_reason_sales', id='call_reason_sales', onchange="enable_option_sales()")
+                      each option in sales_reasons
+                        option(value=option, name='call_reason_sales_option') #{option} 
+                div.form-group 
+                    label.left #[span Payment issue]
+                    select.right(name='payment_issue', id='payment_issue', disabled)
+                      each option in payment_issues
+                        option(value=option) #{option} 
+                div.form-group 
+                    label.left #[span Languages] 
+                    select.right(name='language', id='language', disabled)
+                      each option in languages  
+                        option(value=option) #{option}
+                div.form-group
+                    label.left #[span Can customer use service?]
+                    div.radio-group
+                        input.input-radio#option-yes(type="radio", name='usage_possibility', value='yes')
+                        label.label-radio(for='option-yes') Yes
+                        input.input-radio#option-no(name='usage_possibility', type="radio", value='no')
+                        label.label-radio(for='option-no') No         
+                div.form-group
+                    label.left #[span E-mail] 
+                    input.right(name='email', type='e-mail')  
+                div.form-group 
+                    label.left #[span Comment]
+                    input.right(name='comment', type='text')   
+        div.clients.box-decoration#oldClient(disabled) 
+            form#old(method='POST', action="/calls/add")
+                input(name='client_type', id='client_type', value='Old',type='hidden')
+                input(name='time_start', id='time_start', type='hidden')
+                input(name='time_end', id='time_end', type='hidden')
+                input(name='time_duration', id='time_duration', type='hidden')
+                input(name='operator_username', id='operator_username', value=operatorUsername, type='hidden')
+                input(name='operator_department', id='operator_department', value=operatorDepartment, type='hidden')
+                input(name='call_date', id='call_date', value='',type='hidden')
+                div.form-group
+                    label.left #[span Customer ID:]
+                    input.right(name='customer_id', type='text')
+                div.form-group
+                    div.radio-group
+                        input.input-radio#option-one1(type='radio', name='platform', value='Android')
+                        label.label-radio(for='option-one1') Android
+                        input.input-radio#option-two1(type='radio', name='platform', value='iOS')
+                        label.label-radio(for='option-two1') iOS
+                        input.input-radio#option-three1(type='radio', name='platform', value='Desktop')
+                        label.label-radio(for='option-three1') Desktop
+                div.form-group
+                    label.left #[span Reason]
+                    select.right(name='call_reason_support', id='call_reason_support', onchange="enable_option_support()")
+                      each option in support_reasons
+                        option(value=option) #{option} 
+                div.form-group 
+                    label.left #[span Cancellation]
+                    select.right.locked(name='cancellation_reason', id='cancellation_reason', disabled)
+                      each option in cancellation_reasons
+                        option(value=option) #{option}
+                div.form-group 
+                    label.left #[span Languages] 
+                    select.right(name='languages', id='language', disabled)
+                      each option in languages
+                        option(value=option) #{option}
+                div.form-group
+                    label.left #[span Was issue resolved?]
+                    div.radio-group
+                        input.input-radio#option-yes1(type="radio", name='usage_possibility', value='yes')
+                        label.label-radio(for='option-yes1') Yes
+                        input.input-radio#option-no1(name='usage_possibility', type="radio", value='no')
+                        label.label-radio(for='option-no1') No    
+                div.form-group
+                    label.left #[span E-mail] 
+                    input.right(name='email', type='e-mail')  
+                div.form-group
+                    label.left #[span Comment]
+                    input.right(name='comment', type='text')
+    div.container
+     div.box-footer.box-decoration  
+        button.btn-served(name='served'  value='served', onclick='checkform();') Served
+        button.btn-transfer(name='transfered' type='submit', value='served',   onclick='checkform();') Transfered
+        button.btn-dropped(name='dropped' type='submit', value='served', onclick='checkform();') Dropped
+   
+
+              
+            
+

@@ -1,0 +1,27 @@
+doctype html
+html
+  head
+    title Call Log
+    script(src='/css/main.js')
+    link(href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css", rel='stylesheet')
+    link(href='/css/style.css', rel='stylesheet')
+    link(href="https://fonts.googleapis.com/css?family=Unica+One", rel='stylesheet')
+  header  
+   nav.menu
+    a.menu-item(href='/calls/add')
+      i.fa.fa-phone(aria-hidden="true")
+    a.menu-item(href='/call_list/1')
+      i.fa.fa-list-alt(aria-hidden="true")
+    div.dropdown  
+        button.dropbtn.menu-item#menu-name
+             i.fa.fa-user-o(aria-hidden="true") #[span(id='user') #{operatorUsername}]  
+        div.dropdown-content
+             a 
+                i.fa.fa-gear(aria-hidden="true")  Settings
+             a(href='/logout') 
+                i.fa.fa-sign-in(aria-hidden="true")  Logout  
+  block content  
+  br
+  hr
+  footer
+  p copyright &copy; 2017

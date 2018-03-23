@@ -1,0 +1,10 @@
+extends layout
+block content
+  
+    h1 #{title}
+    h2=users[0].username
+    form(action="", method="post")
+      select
+        each reason, i in reasons
+         option(value='') #{reason} 
+          
